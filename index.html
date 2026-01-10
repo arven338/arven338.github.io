@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bounty-AI | Advanced AI Chat</title>
+    <title>Bounty-AI – Потужніший ШІ-Агент 🥥</title>
     
     <!-- Scripts: Tailwind, Marked, KaTeX -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -157,8 +157,8 @@
                 <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>
             </div>
             <div>
-                <h1 class="text-lg font-bold text-gray-800 leading-tight">Bounty-AI ð¥¥</h1>
-                <p class="text-xs text-green-600 font-medium">Ð² Ð¼ÐµÑÐµÐ¶Ñ</p>
+                <h1 class="text-lg font-bold text-gray-800 leading-tight">Bounty-AI 🥥</h1>
+                <p class="text-xs text-green-600 font-medium">в мережі</p>
             </div>
         </div>
         <button class="p-2 text-gray-400 hover:text-red-500 transition" onclick="clearChat()">
@@ -168,10 +168,10 @@
 
     <main class="chat-container" id="chatWindow"></main>
 
-    <div id="typingIndicator" class="typing-indicator">Bounty-AI Ð¾Ð±ÑÐ¸ÑÐ»ÑÑ ÑÐµÐ·ÑÐ»ÑÑÐ°Ñ...</div>
+    <div id="typingIndicator" class="typing-indicator">Bounty-AI пише...</div>
 
     <footer class="input-area">
-        <input type="text" id="userInput" class="m3-input" placeholder="ÐÐ²ÐµÐ´ÑÑÑ Ð·Ð°Ð¿Ð¸Ñ Ð°Ð±Ð¾ Ð¼Ð°ÑÐµÐ¼Ð°ÑÐ¸ÑÐ½Ñ Ð·Ð°Ð´Ð°ÑÑ..." autocomplete="off">
+        <input type="text" id="userInput" class="m3-input" placeholder="Введіть запит..." autocomplete="off">
         <button id="sendBtn" class="send-btn">
             <i class="fa-solid fa-paper-plane"></i>
         </button>
@@ -186,17 +186,17 @@
         marked.setOptions({ breaks: true, gfm: true });
 
         let messages = [
-            { role: "system", content: "Ð¢Ð¸ - Bounty-AI ð¥¥. Ð¢Ð¸ ÐµÐºÑÐ¿ÐµÑÑ Ñ Ð¼Ð°ÑÐµÐ¼Ð°ÑÐ¸ÑÑ ÑÐ° Ð½Ð°ÑÑÑ. ÐÐ°Ð²Ð¶Ð´Ð¸ Ð²Ð¸ÐºÐ¾ÑÐ¸ÑÑÐ¾Ð²ÑÐ¹ LaTeX Ð´Ð»Ñ ÑÐ¾ÑÐ¼ÑÐ». ÐÐ¸ÐºÐ¾ÑÐ¸ÑÑÐ¾Ð²ÑÐ¹ $...$ Ð´Ð»Ñ Ð²Ð±ÑÐ´Ð¾Ð²Ð°Ð½Ð¸Ñ ÑÐ¾ÑÐ¼ÑÐ» ÑÐ° $$...$$ Ð´Ð»Ñ Ð¾ÐºÑÐµÐ¼Ð¸Ñ Ð±Ð»Ð¾ÐºÑÐ². ÐÑÐ´Ð¿Ð¾Ð²ÑÐ´Ð°Ð¹ ÑÐºÑÐ°ÑÐ½ÑÑÐºÐ¾Ñ." }
+            { role: "system", content: "Ти - Bounty-AI 🥥, офіційний асистент продакшену Bounty-AI. Ти розмовляєш українською мовою. Ти підтримуєш Markdown та LaTeX. Якщо користувач просить формулу, пиши її в форматі $...$ для інлайну або $$...$$ для блоку. Використовуй емодзі кокоса 🥥." }
         ];
 
-        // ÐÐ¾ÐºÑÐ°ÑÐµÐ½Ð° Ð¾ÑÐ¸ÑÑÐºÐ° ÑÐ° Ð½Ð¾ÑÐ¼Ð°Ð»ÑÐ·Ð°ÑÑÑ LaTeX
+        // Покращена очистка та нормалізація LaTeX
         function preprocessLaTeX(text) {
             if (!text) return "";
             return text
-                .replace(/\\\[/g, '$$$$') // ÐÐ°Ð¼ÑÐ½Ð° \[ Ð½Ð° $$
-                .replace(/\\\]/g, '$$$$') // ÐÐ°Ð¼ÑÐ½Ð° \] Ð½Ð° $$
-                .replace(/\\\(/g, '$')    // ÐÐ°Ð¼ÑÐ½Ð° \( Ð½Ð° $
-                .replace(/\\\)/g, '$');   // ÐÐ°Ð¼ÑÐ½Ð° \) Ð½Ð° $
+                .replace(/\\\[/g, '$$$$') // Заміна \[ на $$
+                .replace(/\\\]/g, '$$$$') // Заміна \] на $$
+                .replace(/\\\(/g, '$')    // Заміна \( на $
+                .replace(/\\\)/g, '$');   // Заміна \) на $
         }
 
         async function copyToClipboard(text, btn) {
@@ -222,10 +222,10 @@
             const rawText = element.textContent;
             const processedText = preprocessLaTeX(rawText);
             
-            // Ð ÐµÐ½Ð´ÐµÑ Markdown
+            // Рендер Markdown
             element.innerHTML = marked.parse(processedText);
             
-            // ÐÑÐ´ÑÐ²ÑÑÐºÐ° ÐºÐ¾Ð´Ñ ÑÐ° Ð´Ð¾Ð´Ð°Ð²Ð°Ð½Ð½Ñ ÐºÐ½Ð¾Ð¿Ð¾Ðº ÐºÐ¾Ð¿ÑÑÐ²Ð°Ð½Ð½Ñ
+            // Підсвітка коду та додавання кнопок копіювання
             element.querySelectorAll('pre code').forEach((block) => {
                 hljs.highlightElement(block);
             });
@@ -243,7 +243,7 @@
                 wrapper.appendChild(copyBtn);
             });
             
-            // Ð ÐµÐ½Ð´ÐµÑ LaTeX ÑÐµÑÐµÐ· KaTeX
+            // Рендер LaTeX через KaTeX
             renderMathInElement(element, {
                 delimiters: [
                     {left: '$$', right: '$$', display: true},
@@ -303,7 +303,7 @@
 
                 messages.push({ role: "assistant", content: final });
                 return final;
-            } catch (error) { return "ð¥¥ ÐÐ¾Ð¼Ð¸Ð»ÐºÐ° Ð·Ð°Ð²Ð°Ð½ÑÐ°Ð¶ÐµÐ½Ð½Ñ."; }
+            } catch (error) { return "🥥 Помилка завантаження."; }
         }
 
         async function handleSend() {
@@ -324,7 +324,7 @@
         function clearChat() {
             chatWindow.innerHTML = '';
             messages = [messages[0]];
-            addMessage("# ÐÑÑÐ°Ñ! ð¥¥\nÐ¯ Ð³Ð¾ÑÐ¾Ð²Ð¸Ð¹ Ð´Ð¾ ÑÐºÐ»Ð°Ð´Ð½Ð¸Ñ Ð¾Ð±ÑÐ¸ÑÐ»ÐµÐ½Ñ ÑÐ° ÑÐ¾Ð±Ð¾ÑÐ¸ Ð· LaTeX. ÐÐ°Ð¿Ð¸ÑÑÐ¹ÑÐµ!", false);
+            addMessage("# Вітаю! 🥥\nЯ – **Bounty-AI**, ваш кокосовий помічник! Готовий відповідати на любі запитання 😉", false);
         }
 
         sendBtn.addEventListener('click', handleSend);
@@ -334,3 +334,4 @@
     </script>
 </body>
 </html>
+
